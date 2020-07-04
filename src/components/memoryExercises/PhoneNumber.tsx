@@ -1,13 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet, FlatList} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, View, StyleSheet, FlatList, Dimensions } from 'react-native';
 
-import {number} from '../../assets/consts';
-import {colors, appStyles} from '../../assets/styles';
+import { number } from '../../assets/consts';
+import { colors, appStyles } from '../../assets/styles';
 import EndOfExerciseModal from '../EndOfExerciseModal';
 import Button from '../Button';
 import Timer from '../Timer';
 
 const names = ['Fryzjer', 'Piotrek', 'Hania', 'Tadeusz'];
+const { height, width } = Dimensions.get('window');
 
 const PhoneNumber = () => {
   const numberLength = 9;
@@ -83,7 +84,7 @@ const PhoneNumber = () => {
           contentContainerStyle={styles.keyboardContentContainerStyle}
           data={numbers}
           numColumns={3}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <Button
               buttonType="answer"
               text={item.toString()}
@@ -117,7 +118,7 @@ const PhoneNumber = () => {
       {isExerciseStarted && !isExerciseFinished && isExerciseTimeStarted && (
         <Timer time={time} />
       )}
-      <View style={styles.container}>
+      <View style={appStyles.container}>
         <View style={styles.exerciseWrapper}>
           {!isExerciseStarted ? (
             <>
@@ -131,7 +132,8 @@ const PhoneNumber = () => {
                     marginHorizontal: 30,
                     textAlign: 'center',
                   },
-                ]}>
+                ]}
+              >
                 Pokaże się numer telefonu, który należy zapamiętać w ustalonym
                 czasie. Następnie należy wybać wcześniej zapamiętany numer na
                 klawiaturze
@@ -139,8 +141,9 @@ const PhoneNumber = () => {
               <Text
                 style={[
                   appStyles.titleText,
-                  {fontSize: 20, marginVertical: 0},
-                ]}>
+                  { fontSize: 20, marginVertical: 0 },
+                ]}
+              >
                 Aby rozpocząć naciśnij przycisk poniżej
               </Text>
               <Button buttonType="start" onPress={startExercise} />
@@ -152,10 +155,18 @@ const PhoneNumber = () => {
                   <Text style={styles.text}>Zapamiętaj numer telefonu</Text>
                   <Text style={styles.text}>{chosenName}</Text>
                   <Text style={styles.text}>{phoneNumber}</Text>
+                  <Button
+                    text="Zapamiętałem"
+                    onPress={() => {
+                      setIsExerciseTimeStarted(false);
+                    }}
+                  />
                 </>
               ) : (
                 <>
-                  <View style={{flexDirection: 'row'}}>{renderKeyboard()}</View>
+                  <View style={{ flexDirection: 'row' }}>
+                    {renderKeyboard()}
+                  </View>
                 </>
               )}
             </>
@@ -200,9 +211,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 20,
     flex: 2,
-    height: '100%',
+    height,
     justifyContent: 'center',
-    width: '100%',
+    width,
   },
   exerciseWrapper: {
     alignItems: 'center',
@@ -236,11 +247,11 @@ const styles = StyleSheet.create({
     color: colors.mintCream,
   },
   keyboardWrapper: {
-    alignSelf: 'flex-end',
     backgroundColor: 'grey',
+    borderColor: colors.mintCream,
     borderRadius: 20,
-    width: '50%',
-    height: '100%',
+    borderWidth: 10,
+    width: 0.9 * width,
   },
   text: {
     color: colors.mintCream,

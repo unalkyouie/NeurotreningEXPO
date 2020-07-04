@@ -1,7 +1,7 @@
-import {Provider} from './Provider';
+import { Provider } from './Provider';
 
 /**constants */
-const API_KEY = 'AIzaSyCC2XbO06o4qYUPKe1aXvs49leWqfe6SmE';
+export const API_KEY = 'AIzaSyCC2XbO06o4qYUPKe1aXvs49leWqfe6SmE';
 const BASE_URL = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=`;
 const CHANNEL_ID = 'UCJ9YXN2McAbVn8c3qVar-8A';
 export const NEUROTRENING_ID = 'PLFhHSWU8pednOeXAoKjkVDDLCMP-Jsy9D';
@@ -28,7 +28,7 @@ const fetchPlaylist = async (url: string) => {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    },
+    }
   );
   console.log();
   const r = res.json();
@@ -40,7 +40,7 @@ class YouTubeProvider extends Provider {
   static async numberOfVideos(url: string) {
     const apiResponse = await fetchPlaylist(url);
     const response: number = apiResponse.pageInfo.totalResults;
-    return {response};
+    return { response };
   }
   static async getVideoList(url: string) {
     const apiResponse = await fetchPlaylist(url);
@@ -51,16 +51,16 @@ class YouTubeProvider extends Provider {
         (video: {
           snippet: {
             position: number;
-            resourceId: {videoId: string};
+            resourceId: { videoId: string };
             title: string;
           };
         }) => ({
           id: video.snippet.resourceId.videoId,
           position: video.snippet.position,
           title: video.snippet.title,
-        }),
+        })
       );
-    return {response};
+    return { response };
   }
   static async getLastVideo(url: string) {
     const apiResponse = await fetchPlaylist(url);
@@ -70,19 +70,19 @@ class YouTubeProvider extends Provider {
       position: apiResponse.items[max.response - 1].snippet.position,
       title: apiResponse.items[max.response - 1].snippet.title,
     };
-    return {response};
+    return { response };
   }
   static async getVideoByTitle(url: string, videoTitle: string) {
     const apiResponse = await fetchPlaylist(url);
     const v = apiResponse.items.indexOf(
-      apiResponse.items.snippet.title === videoTitle,
+      apiResponse.items.snippet.title === videoTitle
     );
     const response: Video = {
       title: v.snippet.title,
       id: v.snippet.resourceId.videoId,
       position: v.snippet.position,
     };
-    return {response};
+    return { response };
   }
 }
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {bigNumber, number} from '../../assets/consts';
-import {colors, appStyles} from '../../assets/styles';
+import { bigNumber, number } from '../../assets/consts';
+import { colors, appStyles } from '../../assets/styles';
 import Button from '../Button';
 import EndOfExerciseModal from '../EndOfExerciseModal';
 import PointsContainer from '../PointsContainer';
@@ -82,10 +82,12 @@ const OrderOfNumbers = () => {
           alignItems: 'center',
           justifyContent: 'center',
           margin: 10,
-        }}>
+        }}
+      >
         <ImageBackground
           source={require('../../assets/images/cloud.png')}
-          style={styles.image}>
+          style={styles.image}
+        >
           <Text style={styles.buttonText}>{item.toString()}</Text>
         </ImageBackground>
       </TouchableOpacity>
@@ -94,7 +96,7 @@ const OrderOfNumbers = () => {
   return (
     <>
       {isExerciseStarted && !isExerciseFinished && <Timer time={time} />}
-      <View style={styles.container}>
+      <View style={appStyles.container}>
         {!isExerciseStarted ? (
           <>
             <Text style={appStyles.titleText}>Kolejność liczb</Text>
@@ -106,14 +108,16 @@ const OrderOfNumbers = () => {
                   marginVertical: 0,
                   textAlign: 'center',
                 },
-              ]}>
+              ]}
+            >
               Zadanie polega na uporządkowaniu liczb w kolejności rosnącej. Z
               wyświetlonych liczb wybierz tą, która jest najmniejsza. W
               przypadku dwóch takich samych wartości nie ma znaczenia, którą
               wypierzesz.
             </Text>
             <Text
-              style={[appStyles.titleText, {fontSize: 16, marginVertical: 0}]}>
+              style={[appStyles.titleText, { fontSize: 16, marginVertical: 0 }]}
+            >
               Aby rozpocząć naciśnij przycisk poniżej
             </Text>
             <Button buttonType="start" onPress={startExercise} />
@@ -155,7 +159,6 @@ const styles = StyleSheet.create({
   numbersContainer: {
     flexWrap: 'wrap',
     flexDirection: 'row',
-    maxWidth: '80%',
   },
   container: {
     alignItems: 'center',

@@ -1,92 +1,150 @@
-import React from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import React from 'react';
+import { Dimensions } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import ExerciseScreen from './screens/ExerciseScreen';
-import MainScreen from './screens/MainScreen';
-import RelaxationScreen from './screens/RelaxationScreen';
-import VideoScreen from './screens/VideoScreen';
-import WelcomeScreen from './screens/WelcomeScreen';
 import BuildWords from './components/languageExercises/BuildWords';
 import CompleteWords from './components/languageExercises/CompleteWords';
-import Equations from './components/thinkingExercises/Equations';
-import OrderOfNumbers from './components/thinkingExercises/OrderOfNumbers';
 import PhoneNumber from './components/memoryExercises/PhoneNumber';
 import ShoppingList from './components/memoryExercises/ShoppingList';
+import Equations from './components/thinkingExercises/Equations';
+import OrderOfNumbers from './components/thinkingExercises/OrderOfNumbers';
+import WelcomeIntroductionScreen from './screens/startScreens/WelcomeIntroductionScreen';
+import WelcomeSignUpScreen from './screens/startScreens/WelcomeSignUpScreen';
+import WelcomeScreen from './screens/startScreens/WelcomeScreen';
+import ExercisesDisplay from './screens/ExercisesDisplay';
+import ExerciseScreen from './screens/ExerciseScreen';
+import InfoScreen from './screens/InfoScreen';
+import MainScreen from './screens/MainScreen';
+import RelaxationScreen from './screens/RelaxationScreen';
+import SettingsScreen from './screens/SettingsScreen';
+import UserScreen from './screens/UserScreen';
+import VideoScreen from './screens/VideoScreen';
 import { colors } from './assets/styles';
+import SignUpScreen from './screens/SignUpScreen';
+import SignInScreen from './screens/SignInScreen';
 const { height, width } = Dimensions.get('window');
 
-const Stack = createStackNavigator();
-const AppContainer = () => {
-  const animations = {
-    animations: {
-      push: {
-        content: {
-          translationX: {
-            from: require('react-native').Dimensions.get('window').width,
-            to: 0,
-            duration: 300,
-          },
-        },
-      },
-    },
-  };
+const ExercisesStack = createStackNavigator();
+export const ExercisesNavigator = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          animationEnabled: true,
-          cardStyle: { backgroundColor: 'transparent', paddingTop: '20%' },
-          headerShown: false,
-        }}
-        initialRouteName="main"
-      >
-        <Stack.Screen name="main" component={MainScreen} />
-        <Stack.Screen name="exercise" component={ExerciseScreen} />
-        <Stack.Screen name="relaxation" component={RelaxationScreen} />
-        <Stack.Screen name="video" component={VideoScreen} />
-        <Stack.Screen name="BuildWords" component={BuildWords} />
-        <Stack.Screen name="CompleteWords" component={CompleteWords} />
-        <Stack.Screen name="Equations" component={Equations} />
-        <Stack.Screen name="OrderOfNumbers" component={OrderOfNumbers} />
-        <Stack.Screen name="PhoneNumber" component={PhoneNumber} />
-        <Stack.Screen name="ShoppingList" component={ShoppingList} />
-        <Stack.Screen name="welcome" component={WelcomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ExercisesStack.Navigator
+      screenOptions={{
+        animationEnabled: true,
+        cardStyle: { backgroundColor: 'transparent' },
+        headerShown: false,
+      }}
+      initialRouteName="main"
+    >
+      <ExercisesStack.Screen name="Display" component={ExercisesDisplay} />
+      <ExercisesStack.Screen name="BuildWords" component={BuildWords} />
+      <ExercisesStack.Screen name="CompleteWords" component={CompleteWords} />
+      <ExercisesStack.Screen name="Equations" component={Equations} />
+      <ExercisesStack.Screen name="OrderOfNumbers" component={OrderOfNumbers} />
+      <ExercisesStack.Screen name="PhoneNumber" component={PhoneNumber} />
+      <ExercisesStack.Screen name="ShoppingList" component={ShoppingList} />
+    </ExercisesStack.Navigator>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-  },
-  contentContainer: {
-    alignItems: 'center',
-    alignSelf: 'center',
-    backgroundColor: colors.mintCream,
-    borderRadius: 20,
-    flex: 2,
-    height: '90%',
-    justifyContent: 'center',
-    opacity: 0.5,
-    position: 'absolute',
-    width: '90%',
-  },
-  image: {
-    top: 0,
-    left: 0,
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
-    width,
-    height,
-    alignItems: 'stretch',
-    bottom: 0,
-    right: 0,
-  },
-});
+const WelcomeStack = createStackNavigator();
+export const WelcomeNavigator = () => {
+  return (
+    <WelcomeStack.Navigator
+      screenOptions={{
+        animationEnabled: true,
+        cardStyle: { backgroundColor: 'transparent' },
+        headerShown: false,
+      }}
+      initialRouteName="main"
+    >
+      <WelcomeStack.Screen
+        name="WelcomeIntroduction"
+        component={WelcomeIntroductionScreen}
+      />
+      <WelcomeStack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+      <WelcomeStack.Screen
+        name="WelcomeSignUp"
+        component={WelcomeSignUpScreen}
+      />
+      <WelcomeStack.Screen name="SignUp" component={SignUpScreen} />
+      <WelcomeStack.Screen name="SignIn" component={SignInScreen} />
 
-export default AppContainer;
+      <WelcomeStack.Screen name="Main" component={DrawerNavigator} />
+    </WelcomeStack.Navigator>
+  );
+};
+const Tab = createMaterialBottomTabNavigator();
+export const TabNavigator = () => {
+  return (
+    <Tab.Navigator
+      backBehavior={'history'}
+      initialRouteName="main"
+      activeColor={colors.bittersweet}
+      inactiveColor={colors.midnightGreen}
+      barStyle={{ backgroundColor: colors.mintCream }}
+    >
+      <Tab.Screen
+        name="main"
+        component={MainScreen}
+        options={{
+          tabBarLabel: 'Główna',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="home" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="exercise"
+        component={ExerciseScreen}
+        options={{
+          tabBarLabel: 'Ćwiczenia',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="brain" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="relaxation"
+        component={RelaxationScreen}
+        options={{
+          tabBarLabel: 'Relaksacja',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="bullseye" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="video"
+        component={VideoScreen}
+        options={{
+          tabBarLabel: 'Film',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="video-outline"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
+
+const Drawer = createDrawerNavigator();
+export const DrawerNavigator = () => {
+  return (
+    <Drawer.Navigator
+      initialRouteName="Home"
+      screenOptions={{}}
+      drawerStyle={{ backgroundColor: colors.mintCream }}
+    >
+      <Drawer.Screen name="Home" component={TabNavigator} />
+      <Drawer.Screen name="UserScreen" component={UserScreen} />
+      <Drawer.Screen name="InfoScreen" component={InfoScreen} />
+      <Drawer.Screen name="Settings" component={SettingsScreen} />
+    </Drawer.Navigator>
+  );
+};

@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
-  FlatList,
-  ImageBackground,
   StyleSheet,
   Text,
   View,
@@ -16,9 +14,10 @@ import YouTubeProvider, {
   Video,
 } from '../api/YouTubeProvider';
 import { appStyles, colors } from '../assets/styles';
-import ADButton from '../components/Button';
+import Button from '../components/Button';
 import VideoView from '../components/VideoView';
 import { useNavigation } from '@react-navigation/native';
+import { TabNavigator } from '../Navigation';
 
 const { height, width } = Dimensions.get('window');
 
@@ -80,7 +79,16 @@ const VideoScreen = () => {
     return video;
   };
   return (
-    <ScrollView contentContainerStyle={[appStyles.container]}>
+    <View
+      style={[
+        appStyles.container,
+        {
+          alignItems: 'stretch',
+          justifyContent: 'space-between',
+          paddingTop: 0.1 * height,
+        },
+      ]}
+    >
       {!videoLoaded ? (
         <>
           <ActivityIndicator animating={!videoLoaded} size="large" />
@@ -96,14 +104,13 @@ const VideoScreen = () => {
             </View>
             <View
               style={{
-                minWidth: 300,
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: '100%',
+                height: 0.5 * height,
               }}
             >
               <View style={styles.switchContainer}>
-                <ADButton
+                <Button
                   onPress={() => {
                     setChosenPlaylist(NEUROTRENING_ID);
                   }}
@@ -119,7 +126,7 @@ const VideoScreen = () => {
                       styles.switchButtonActiveText,
                   ]}
                 />
-                <ADButton
+                <Button
                   onPress={() => {
                     setChosenPlaylist(RELAKASACJA_ID);
                   }}
@@ -136,12 +143,10 @@ const VideoScreen = () => {
                   ]}
                 />
               </View>
-              <FlatList
-                contentContainerStyle={styles.listContainer}
-                data={videoList}
-                renderItem={({ item }) => {
+              <ScrollView contentContainerStyle={styles.listContainer}>
+                {videoList.map((item) => {
                   return (
-                    <ADButton
+                    <Button
                       style={[
                         styles.videoListButton,
                         isVideoPlaying[videoList.indexOf(item)] &&
@@ -158,38 +163,37 @@ const VideoScreen = () => {
                       }}
                     />
                   );
-                }}
-                style={styles.list}
-              />
+                })}
+              </ScrollView>
             </View>
           </View>
         </>
       )}
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   buttonText: {
-    color: colors.midnightGreen,
+    color: colors.mintCream,
     fontSize: 16,
   },
   componentWrapper: {
-    width: '100%',
-    height: '80%',
+    alignItems: 'center',
+    height,
+    width,
   },
   list: {
     borderRadius: 10,
     marginHorizontal: 30,
-    height: '100%',
-    maxWidth: 300,
   },
   listContainer: {
     alignItems: 'center',
     paddingHorizontal: 10,
+    alignSelf: 'flex-end',
   },
   switchButton: {
-    backgroundColor: 'grey',
+    backgroundColor: 'transparent',
     borderTopWidth: 0,
     borderLeftWidth: 0,
     borderBottomWidth: 0,
@@ -197,11 +201,11 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 10,
     margin: 5,
+    width: '50%',
   },
   switchButtonActive: {
     backgroundColor: colors.mintCream,
     borderRadius: 25,
-    paddingHorizontal: 15,
     margin: 0,
   },
   switchButtonText: {
@@ -209,34 +213,34 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginHorizontal: 0,
     minWidth: 0,
+    textAlign: 'center',
   },
   switchButtonActiveText: {
     color: colors.midnightGreen,
-    fontSize: 15,
+    // fontSize: 15,
   },
   switchContainer: {
-    alignItems: 'stretch',
-    backgroundColor: 'grey',
+    backgroundColor: colors.midnightGreen,
     borderRadius: 25,
     flexDirection: 'row',
-    maxWidth: 300,
     margin: 10,
-    justifyContent: 'space-between',
+    width: 0.8 * width,
   },
   videoListButton: {
-    backgroundColor: colors.mintCream,
+    backgroundColor: 'transparent',
     borderColor: 'transparent',
     borderRadius: 10,
     borderWidth: 0,
     margin: 5,
-    maxWidth: 300,
-    minWidth: 200,
+    width: 0.8 * width,
+    padding: 30,
   },
   videoListCheckedButton: {
-    backgroundColor: colors.mediumTurquise,
+    backgroundColor: colors.midnightGreen,
   },
   videoWrapper: {
-    marginLeft: 20,
+    height: height * 0.3,
+    width: width,
   },
 });
 export default VideoScreen;

@@ -52,3 +52,18 @@ export const number = () => {
 export const bigNumber = () => {
   return Math.floor(Math.random() * (100 - 10) + 10);
 };
+
+export enum background {
+  'pierwsze',
+}
+
+export interface UserData {
+  name: string;
+  email?: string;
+}
+
+export enum level {
+  'easy',
+  'medium',
+  'hard',
+}

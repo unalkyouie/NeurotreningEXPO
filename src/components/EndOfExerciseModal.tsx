@@ -1,9 +1,9 @@
 import React from 'react';
-import {Text, View, StyleSheet, Dimensions, Modal} from 'react-native';
-import {colors} from '../assets/styles';
+import { Text, View, StyleSheet, Dimensions, Modal } from 'react-native';
+import { colors } from '../assets/styles';
 import Button from './Button';
 
-const {height, width} = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 
 interface Props {
   startExercise: () => void;
@@ -32,14 +32,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: colors.mintCream,
     borderRadius: 20,
-    height: 0.9 * height,
+    height: 0.5 * height,
     justifyContent: 'center',
     position: 'absolute',
-    width: 0.9 * width,
+    width: 0.5 * width,
   },
   buttonContainer: {
     flexDirection: 'row',
-    marginTop: 100,
+    alignSelf: 'flex-end',
   },
 });
 export default EndOfExerciseModal;

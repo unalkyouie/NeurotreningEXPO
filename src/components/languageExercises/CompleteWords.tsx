@@ -1,13 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, TextInput, View, Dimensions } from 'react-native';
 
 import DictionaryProvider from '../../api/DictionaryProvider';
-import {lettersList} from '../../assets/consts';
-import {colors, appStyles} from '../../assets/styles';
+import { lettersList } from '../../assets/consts';
+import { colors, appStyles } from '../../assets/styles';
 import Button from '../Button';
 import EndOfExerciseModal from '../EndOfExerciseModal';
 import List from '../List';
 import Timer from '../Timer';
+const { height, width } = Dimensions.get('window');
 
 const CompleteWords = () => {
   const [wordsList, setWordsList] = useState<string[]>([]);
@@ -63,7 +64,7 @@ const CompleteWords = () => {
   return (
     <>
       {isExerciseStarted && !isExerciseFinished && <Timer time={time} />}
-      <View style={styles.container}>
+      <View style={appStyles.container}>
         {!isExerciseStarted ? (
           <>
             <Text style={appStyles.titleText}>Znajdowanie słów</Text>
@@ -76,12 +77,14 @@ const CompleteWords = () => {
                   marginHorizontal: 30,
                   textAlign: 'center',
                 },
-              ]}>
+              ]}
+            >
               Zadanie polega na ułożeniu jak największej ilości wyrazów
               rozpoczynających się na podaną literę.
             </Text>
             <Text
-              style={[appStyles.titleText, {fontSize: 20, marginVertical: 0}]}>
+              style={[appStyles.titleText, { fontSize: 20, marginVertical: 0 }]}
+            >
               Aby rozpocząć naciśnij przycisk poniżej
             </Text>
             <Button onPress={startExercise} buttonType="start" />
@@ -98,7 +101,7 @@ const CompleteWords = () => {
                 clearTextOnFocus={true}
                 style={styles.input}
                 onChangeText={(text) => {
-                  setNewWord(letter + text);
+                  setNewWord(letter + text.toLowerCase());
                 }}
               />
               <Button
@@ -108,6 +111,7 @@ const CompleteWords = () => {
                 style={{
                   borderColor: 'transparent',
                   backgroundColor: 'transparent',
+                  padding: 10,
                 }}
               />
             </View>
@@ -139,10 +143,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderColor: colors.midnightGreen,
     color: colors.midnightGreen,
-    fontSize: 30,
+    fontSize: 40,
     maxHeight: 50,
-    maxWidth: 300,
-    minWidth: 300,
+    maxWidth: 0.5 * width,
+    minWidth: 0.5 * width,
   },
   inputWrapper: {
     alignItems: 'center',

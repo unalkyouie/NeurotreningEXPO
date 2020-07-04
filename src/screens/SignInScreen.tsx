@@ -1,13 +1,11 @@
 import React from 'react';
-import {TextInput, View, TouchableOpacity, Text} from 'react-native';
+import { TextInput, View, TouchableOpacity, Text } from 'react-native';
+import { appStyles } from '../assets/styles';
 
 const SignInScreen = () => {
   return (
     <View style={appStyles.container}>
-      <Text>Zaloguj się</Text>
-      <TextInput />
-      <TouchableOpacity>Zaloguj</TouchableOpacity>
-      <TouchableOpacity>Zarejestruj</TouchableOpacity>
+      <Text>Ekran logowania</Text>
     </View>
   );
 };

@@ -1,14 +1,15 @@
-import React, {useState, useEffect} from 'react';
-import {View, FlatList, StyleSheet, Text} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, FlatList, StyleSheet, Text, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {listaZakupow} from '../../assets/listaZakupow';
-import {colors, appStyles} from '../../assets/styles';
+import { listaZakupow } from '../../assets/listaZakupow';
+import { colors, appStyles } from '../../assets/styles';
 import List from '../List';
 import Timer from '../Timer';
 import Button from '../Button';
+const { height, width } = Dimensions.get('window');
 
-const ListToMemorize = (props: {list: string[]}) => {
+const ListToMemorize = (props: { list: string[] }) => {
   return (
     <>
       <Text style={styles.smallTitle}>Lista zakupów</Text>
@@ -55,7 +56,8 @@ const ResultLists = (props: {
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-      }}>
+      }}
+    >
       <View style={styles.checkedAnswersContainer}>
         {forgottenAnswers.length > 0 && (
           <View style={styles.answersListContainer}>
@@ -68,7 +70,7 @@ const ResultLists = (props: {
                 opacity: 0.8,
               }}
               data={props.list}
-              renderItem={({item}) => {
+              renderItem={({ item }) => {
                 return (
                   <View
                     style={{
@@ -76,7 +78,8 @@ const ResultLists = (props: {
                       borderColor: colors.midnightGreen,
                       flexDirection: 'row',
                       padding: 10,
-                    }}>
+                    }}
+                  >
                     <Icon
                       name={
                         forgottenAnswers.indexOf(item) > -1
@@ -100,7 +103,8 @@ const ResultLists = (props: {
                         forgottenAnswers.indexOf(item) > -1 && {
                           color: '#b52424',
                         },
-                      ]}>
+                      ]}
+                    >
                       {item}
                     </Text>
                   </View>
@@ -117,13 +121,14 @@ const ResultLists = (props: {
             <FlatList
               style={{}}
               data={wrongAnswers}
-              renderItem={({item}) => (
+              renderItem={({ item }) => (
                 <Text
                   style={{
                     color: colors.midnightGreen,
                     fontSize: 20,
                     marginLeft: 5,
-                  }}>
+                  }}
+                >
                   {item}
                 </Text>
               )}
@@ -135,7 +140,7 @@ const ResultLists = (props: {
     </View>
   );
 };
-const AnswersLists = (props: {list: string[]; onPress: () => void}) => {
+const AnswersLists = (props: { list: string[]; onPress: () => void }) => {
   const answersListNumber = 15;
   const numberOfItems = 5;
   const [answers, setAnswers] = useState<string[]>([]);
@@ -145,7 +150,7 @@ const AnswersLists = (props: {list: string[]; onPress: () => void}) => {
 
   useEffect(() => {
     setIsAnswerUsed(() =>
-      Array(answersListNumber + numberOfItems).map(() => false),
+      Array(answersListNumber + numberOfItems).map(() => false)
     );
     setPossibleAnswersList();
     const timeout = setTimeout(() => {
@@ -202,9 +207,9 @@ const AnswersLists = (props: {list: string[]; onPress: () => void}) => {
           <FlatList
             contentContainerStyle={styles.list}
             data={possibleAnswers}
-            style={{marginTop: 50}}
+            style={{ marginTop: 50 }}
             keyExtractor={(item, index) => '000' + item + index}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <Button
                 text={item}
                 onPress={() => {
@@ -222,7 +227,7 @@ const AnswersLists = (props: {list: string[]; onPress: () => void}) => {
                     styles.checkedAnswerButton,
                 ]}
                 textStyle={[
-                  {color: colors.richBlack},
+                  { color: colors.richBlack },
                   isAnswerUsed[possibleAnswers.indexOf(item)] && {
                     color: colors.mintCream,
                   },
@@ -233,7 +238,7 @@ const AnswersLists = (props: {list: string[]; onPress: () => void}) => {
           <Button
             onPress={checkAnswers}
             text="Skończyłem"
-            style={[styles.button, {marginBottom: 50}]}
+            style={[styles.button, { marginBottom: 50 }]}
           />
         </View>
       ) : (
@@ -321,7 +326,8 @@ const ShoppingList = () => {
                   marginVertical: 0,
                   textAlign: 'center',
                 },
-              ]}>
+              ]}
+            >
               Po naciśnięciu przycisku wyświetli się lista zakupów do
               zapamietania. Po upłynięciu czasu lub gdy zdecydujesz, że już
               zapamietałeś. Następnie zobaczysz wiele produktów, z których
@@ -329,7 +335,8 @@ const ShoppingList = () => {
               ćwiczenia, również masz ograniczony czas.
             </Text>
             <Text
-              style={[appStyles.titleText, {fontSize: 16, marginVertical: 0}]}>
+              style={[appStyles.titleText, { fontSize: 16, marginVertical: 0 }]}
+            >
               Aby rozpocząć naciśnij przycisk poniżej
             </Text>
             <Button buttonType="start" onPress={startExercise} />
@@ -353,6 +360,8 @@ const styles = StyleSheet.create({
   },
   answersListContainer: {},
   button: {
+    alignItems: 'center',
+
     borderWidth: 0,
     borderRadius: 0,
     backgroundColor: 'transparent',
@@ -372,9 +381,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     borderRadius: 20,
-    height: '80%',
+    flex: 1,
+    height,
     justifyContent: 'center',
-    width: '80%',
+    width,
+    backgroundColor: colors.mediumTurquise,
   },
   list: {
     marginBottom: 20,

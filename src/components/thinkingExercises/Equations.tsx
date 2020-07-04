@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
 
-import {number, bigNumber} from '../../assets/consts';
-import {colors, appStyles} from '../../assets/styles';
+import { number, bigNumber } from '../../assets/consts';
+import { colors, appStyles } from '../../assets/styles';
 import Button from '../Button';
 import EndOfExerciseModal from '../EndOfExerciseModal';
 import PointsContainer from '../PointsContainer';
@@ -105,7 +105,7 @@ const Equations = () => {
   return (
     <>
       {isExerciseStarted && !isExerciseFinished && <Timer time={time} />}
-      <View style={styles.container}>
+      <View style={appStyles.container}>
         {!isExerciseStarted ? (
           <>
             <Text style={appStyles.titleText}>Równiania</Text>
@@ -117,13 +117,15 @@ const Equations = () => {
                   marginVertical: 0,
                   textAlign: 'center',
                 },
-              ]}>
+              ]}
+            >
               Zadanie polega na zaznaczeniu równania, którego wartość jest
               większa. W przypadku równych wartości należy nacisnąć przycisk
               "Równe" znajdujący się na środku.
             </Text>
             <Text
-              style={[appStyles.titleText, {fontSize: 16, marginVertical: 0}]}>
+              style={[appStyles.titleText, { fontSize: 16, marginVertical: 0 }]}
+            >
               Aby rozpocząć naciśnij przycisk poniżej
             </Text>
             <Button buttonType="start" onPress={startExercise} />

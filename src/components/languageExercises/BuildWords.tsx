@@ -1,16 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
   TextInput,
   View,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import DictionaryProvider from '../../api/DictionaryProvider';
-import {consonant, vowels} from '../../assets/consts';
-import {colors, appStyles} from '../../assets/styles';
+import { consonant, vowels } from '../../assets/consts';
+import { colors, appStyles } from '../../assets/styles';
 import Button from '../Button';
 import EndOfExerciseModal from '../EndOfExerciseModal';
 import List from '../List';
@@ -19,6 +20,7 @@ import Timer from '../Timer';
 const exerciseDescripton = `W ciągu 5 minut ułóż jak najwięcej wyrazów składających się z poniższego
 zestawu liter. Nie musisz za każdym razem wykorzystywać wszystkich
 liter. Litery do wykorzystania: `;
+const { height, width } = Dimensions.get('window');
 
 const BuildWords = () => {
   const [lettersToUse, setLettersToUse] = useState<string[]>([]);
@@ -104,7 +106,7 @@ const BuildWords = () => {
   return (
     <>
       {isExerciseStarted && !isExerciseFinished && <Timer time={time} />}
-      <View style={styles.container}>
+      <View style={appStyles.container}>
         {!isExerciseStarted ? (
           <>
             <Text style={appStyles.titleText}>Układanie słów</Text>
@@ -117,14 +119,16 @@ const BuildWords = () => {
                   marginHorizontal: 30,
                   textAlign: 'center',
                 },
-              ]}>
+              ]}
+            >
               Zadanie polega na ułożeniu jak największej ilości wyrazów z
               podanych liter. Każdej litery można użyć wiele razy, natomiast nie
               można użyć innych liter. W każdym momencie można wylosowany zestaw
               zmienić, jednak skutkuje to rozpoczęciem zadania od początku.
             </Text>
             <Text
-              style={[appStyles.titleText, {fontSize: 20, marginVertical: 0}]}>
+              style={[appStyles.titleText, { fontSize: 20, marginVertical: 0 }]}
+            >
               Aby rozpocząć naciśnij przycisk poniżej
             </Text>
             <Button onPress={startExercise} buttonType="start" />
@@ -143,7 +147,8 @@ const BuildWords = () => {
                   alignSelf: 'flex-end',
                   width: 50,
                   height: 50,
-                }}>
+                }}
+              >
                 <Icon color={colors.midnightGreen} name="refresh" size={30} />
               </TouchableOpacity>
             </View>
@@ -184,7 +189,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     height: '100%',
     justifyContent: 'center',
-    width: '100%',
   },
   input: {
     backgroundColor: 'transparent',
@@ -217,6 +221,7 @@ const styles = StyleSheet.create({
   text: {
     color: colors.midnightGreen,
     fontSize: 24,
+    textAlign: 'center',
   },
 });
 export default BuildWords;

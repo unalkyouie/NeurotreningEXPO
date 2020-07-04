@@ -1,14 +1,14 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {Animated, StyleSheet, Text, View} from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { Animated, StyleSheet, Text, View } from 'react-native';
 
 import usePulse from '../hooks/usePulse';
 import Timer from './Timer';
-import {colors} from '../assets/styles';
+import { colors } from '../assets/styles';
 
 const showText = [
   'Znajdź wygodną dla siebie pozycję i wsłuchaj się w swój oddech.',
   'Całą swoją uwagę skoncentruj na spokojnie wykonywanych wdechach i wydechach.',
-  'Postaraj się z każdym wdechem wydłużać czas trwania wdechu',
+  'Postaraj się za każdym wdechem wydłużać czas trwania wdechu',
   'Wyobraź sobie drogę jaką pokonuje powietrze w organiźmie.',
   'Postaraj się poczuć przepływ powietrza w Twoim ciele.',
   'Jeżeli w Twoim umyśle pojawiają się jakies myśli to nie szkodzi.',
@@ -18,10 +18,10 @@ const showText = [
   'Pozwól sobie na tę chwilę wsłuchania się w siebie',
 ];
 
-const Circle = (props: {scale: Animated.Value}) => {
+const Circle = (props: { scale: Animated.Value }) => {
   return (
     <Animated.View
-      style={[styles.circle, {transform: [{scale: props.scale}]}]}
+      style={[styles.circle, { transform: [{ scale: props.scale }] }]}
     />
   );
 };
@@ -50,7 +50,7 @@ const Counting = () => {
         animation();
         setTextIndex(textIndex + 1);
         clearTimeout(timeout);
-      }, 800);
+      }, 1000);
     }
   }, [textIndex]);
   const opacity = useRef(new Animated.Value(1)).current;
@@ -81,7 +81,7 @@ const Counting = () => {
       }),
     ]).start();
   };
-  const scale = {transform: [{scale: size}]};
+  const scale = { transform: [{ scale: size }] };
   return (
     <Animated.View
       style={[
@@ -97,14 +97,15 @@ const Counting = () => {
           flex: 1,
         },
         scale,
-      ]}>
-      <Text style={[{fontSize: 100, color: colors.mintCream}]}>
+      ]}
+    >
+      <Text style={[{ fontSize: 100, color: colors.mintCream }]}>
         {text[textIndex]}
       </Text>
     </Animated.View>
   );
 };
-const BreathingExercise = (props: {time: number}) => {
+const BreathingExercise = (props: { time: number }) => {
   const [showedText, setShowedText] = useState(0);
   const [isStarted, setIsStarted] = useState(false);
   const fadeIn = useRef(new Animated.Value(0)).current;
@@ -142,7 +143,7 @@ const BreathingExercise = (props: {time: number}) => {
             duration: 10000,
             useNativeDriver: true,
           }),
-        ]),
+        ])
       ).start();
   }, []);
 
@@ -160,11 +161,11 @@ const BreathingExercise = (props: {time: number}) => {
   return (
     <>
       {isStarted ? (
-        <Animated.View style={{opacity: fadeIn}}>
+        <Animated.View style={{ opacity: fadeIn }}>
           <Timer time={props.time} />
           <View style={styles.container}>
-            <View style={{flex: 1, marginTop: 100}}>
-              <Animated.Text style={[styles.text, {opacity: fadeAnim}]}>
+            <View style={{ flex: 1 }}>
+              <Animated.Text style={[styles.text, { opacity: fadeAnim }]}>
                 {showText[showedText]}
               </Animated.Text>
             </View>
@@ -196,7 +197,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   text: {
-    color: colors.richBlack,
+    color: colors.mintCream,
     fontSize: 30,
     margin: 30,
     marginBottom: 50,

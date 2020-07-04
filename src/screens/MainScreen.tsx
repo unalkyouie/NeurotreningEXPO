@@ -1,12 +1,12 @@
+import { useNavigation } from '@react-navigation/native';
 import NetInfo, {
   NetInfoSubscription,
   NetInfoState,
 } from '@react-native-community/netinfo';
+import { LinearGradient } from 'expo-linear-gradient';
 import React, { Dispatch, useState, useEffect } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
 
 import YouTubeProvider, { NEUROTRENING_ID } from '../api/YouTubeProvider';
 import { appStyles, colors } from '../assets/styles';
@@ -80,56 +80,84 @@ const MainScreen = () => {
       console.log(error);
     }
   };
-
   return (
     <View style={[appStyles.container]}>
-      <Text style={[appStyles.titleText, { marginBottom: 0, fontSize: 20 }]}>
-        Witaj!
-      </Text>
-      <Text style={[appStyles.titleText, { marginBottom: 0, fontSize: 20 }]}>
-        {'Zobacz co przygotowaliśmy dla Ciebie na dzisiaj :)'}
-      </Text>
-      <View style={styles.buttonWrapper}>
-        <Icon
-          name="bell-alert"
-          size={40}
-          color={isRelaxationButtonActive ? colors.yellow : 'transparent'}
-        />
-        <Button
-          onPress={() => navigation.navigate('relaxation')}
-          iconColor={colors.mintCream}
-          icon="bullseye"
-        />
-      </View>
-      <View style={styles.buttonWrapper}>
-        <Icon
-          name="bell-alert"
-          size={40}
-          color={isVideoButtonActive ? colors.yellow : 'transparent'}
-        />
-        <Button
-          disabled={!isConnected}
-          onPress={() => {
-            navigation.navigate('video');
+      <LinearGradient
+        colors={['#4ecdc4', '#88dac8', '#b3e6d1', '#f7fff7']}
+        style={styles.linearGradient}
+      >
+        <View style={styles.titleWrapper}>
+          <View style={styles.topWrapper} />
+          <Button
+            icon="menu"
+            style={{
+              width: 40,
+              height: 40,
+              textAlign: 'center',
+              top: 50,
+              padding: 5,
+              backgroundColor: 'transparent',
+            }}
+            onPress={() => {
+              navigation.toggleDrawer();
+            }}
+          />
+          <Text
+            style={[
+              appStyles.titleText,
+              { marginBottom: 0, fontSize: 40, color: colors.midnightGreen },
+            ]}
+          >
+            Witaj!
+          </Text>
+          <Text
+            style={[
+              appStyles.titleText,
+              { marginBottom: 0, fontSize: 30, color: colors.midnightGreen },
+            ]}
+          >
+            {'Zobacz co przygotowaliśmy dla Ciebie na dzisiaj :)'}
+          </Text>
+        </View>
+        <View
+          style={{
+            alignItems: 'center',
+            alignSelf: 'center',
+            justifyContent: 'center',
+            height: 0.5 * height,
+            paddingTop: height * 0.1,
           }}
-          icon="video-outline"
-          iconColor={colors.mintCream}
-        />
-      </View>
-      <View style={styles.buttonWrapper}>
-        <Icon
-          name="bell-alert"
-          size={40}
-          color={isExerciseButtonActive ? colors.yellow : 'transparent'}
-        />
-        <Button
-          onPress={() => {
-            navigation.navigate('exercise');
-          }}
-          icon="brain"
-          iconColor={colors.mintCream}
-        />
-      </View>
+        >
+          <View style={styles.buttonsWrapper}>
+            <View style={styles.buttonWrapper}>
+              <Button
+                onPress={() => navigation.navigate('relaxation')}
+                iconColor={colors.mediumTurquise}
+                icon="bullseye"
+              />
+            </View>
+            <View style={styles.buttonWrapper}>
+              <Button
+                disabled={!isConnected}
+                onPress={() => {
+                  navigation.navigate('video');
+                }}
+                icon="video-outline"
+                iconColor={colors.mediumTurquise}
+              />
+            </View>
+          </View>
+          <View style={styles.buttonWrapper}>
+            <Button
+              onPress={() => {
+                navigation.navigate('exercise');
+              }}
+              icon="brain"
+              iconColor={colors.mediumTurquise}
+            />
+          </View>
+        </View>
+      </LinearGradient>
     </View>
   );
 };
@@ -142,7 +170,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 40,
+    margin: 20,
+    flex: 1,
   },
   image: {
     flex: 1,
@@ -150,6 +179,44 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width,
     height,
+  },
+  buttonsWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    marginHorizontal: width * 0.2,
+    width: width,
+    flex: 2,
+  },
+  titleWrapper: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#b3e6d1',
+    justifyContent: 'center',
+    height: height * 0.5,
+    width: width,
+    borderRadius: height,
+    position: 'absolute',
+    top: -height * 0.1,
+    left: 0,
+    right: 0,
+  },
+  topWrapper: {
+    alignSelf: 'flex-start',
+    backgroundColor: '#b3e6d1',
+    width: width,
+    position: 'absolute',
+    top: 0,
+    height: 0.3 * height,
+  },
+  linearGradient: {
+    alignSelf: 'center',
+    bottom: 0,
+    top: 0,
+    left: 0,
+    width,
+    height,
+    right: 0,
+    justifyContent: 'center',
   },
 });
 

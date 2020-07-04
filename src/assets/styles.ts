@@ -17,10 +17,10 @@ export const appStyles = StyleSheet.create({
   container: {
     alignItems: 'center',
     alignSelf: 'center',
-    // backgroundColor: colors.mintCream,
+    backgroundColor: 'transparent',
     justifyContent: 'center',
-    width: 0.8 * width,
-    height: 0.8 * height,
+    width,
+    height,
     flex: 1,
   },
   titleText: {

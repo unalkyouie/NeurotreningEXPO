@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useRef } from 'react';
 import {
   Image,
@@ -7,8 +8,7 @@ import {
   StyleSheet,
   Animated,
 } from 'react-native';
-import { colors } from '../assets/styles';
-import { useNavigation } from '@react-navigation/native';
+import { colors } from '../../assets/styles';
 
 const WelcomeScreen = () => {
   console.log('welv');
@@ -32,10 +32,10 @@ const WelcomeScreen = () => {
         underlayColor={'transparent'}
       >
         <View style={styles.container}>
-          <Image
+          {/* <Image
             style={styles.image}
-            source={require('../assets/images/ProductHunt2.png')}
-          />
+            source={require('../../assets/images/ProductHunt2.jpg')}
+          /> */}
           <Text style={styles.text}>Witej</Text>
         </View>
       </TouchableHighlight>

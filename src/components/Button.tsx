@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
-import {Text, StyleSheet, TouchableHighlight} from 'react-native';
+import React, { useState } from 'react';
+import { Text, StyleSheet, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import LinearGradient from 'react-native-linear-gradient';
-import {colors} from '../assets/styles';
+import { colors } from '../assets/styles';
 
 interface Props {
   buttonType?: 'answer' | 'back' | 'start';
@@ -38,18 +37,19 @@ const Button = (props: Props) => {
           : props.buttonType === 'start'
           ? styles.startButton
           : props.buttonType === 'back' && styles.backButton,
-        isFocused && {opacity: 1},
+        isFocused && { opacity: 1 },
         props.disabled && styles.disabled,
-        props.icon && {height: 100},
+        props.icon && { height: 100 },
         props.style,
-      ]}>
+      ]}
+    >
       <>
         {props.icon && (
           <Icon
             name={props.icon}
             color={props.iconColor ? props.iconColor : colors.midnightGreen}
-            size={50}
-            style={{padding: 0, textAlign: 'center'}}
+            size={36}
+            style={{ padding: 0, textAlign: 'center', opacity: 1 }}
           />
         )}
         {props.buttonType === 'back' && (
@@ -57,7 +57,7 @@ const Button = (props: Props) => {
             name="arrow-left"
             color={colors.mintCream}
             size={40}
-            style={{margin: 0, textAlign: 'center'}}
+            style={{ margin: 0, textAlign: 'center', opacity: 1 }}
           />
         )}
         {props.buttonType === 'start' && (
@@ -65,7 +65,7 @@ const Button = (props: Props) => {
             name="play"
             color={colors.bittersweet}
             size={60}
-            style={{margin: 0, textAlign: 'center'}}
+            style={{ margin: 0, textAlign: 'center', opacity: 1 }}
           />
         )}
         {props.text && (
@@ -75,7 +75,8 @@ const Button = (props: Props) => {
                 ? styles.answerButtonText
                 : styles.buttonText,
               props.textStyle,
-            ]}>
+            ]}
+          >
             {props.text}
           </Text>
         )}
@@ -129,24 +130,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     margin: 10,
-    borderRadius: 90,
+    borderRadius: 20,
+    backgroundColor: colors.mintCream,
     // borderColor: colors.mintCream,
     // borderWidth: 1,
+    padding: 50,
     opacity: 0.8,
   },
   buttonText: {
     color: colors.mintCream,
     fontSize: 16,
-    maxHeight: 100,
-    minWidth: 100,
-    maxWidth: 200,
     textAlign: 'center',
+    opacity: 1,
   },
   buttonWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',
-    shadowOffset: {width: 1, height: 4},
+    shadowOffset: { width: 1, height: 4 },
     shadowOpacity: 0.8,
     shadowRadius: 3,
     elevation: 5,
