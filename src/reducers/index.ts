@@ -9,6 +9,7 @@ import levelReducer, { LevelState } from './levelReducer';
 import pointsReducer, { PointsState } from './pointsReducer';
 import loginReducer, { LoginState } from './loginReducer';
 import timeReducer, { TimeState } from './timeReducer';
+import userInfoReducer, { UserInfoState } from './userInfoReducer';
 
 export interface AppState {
   relaxation: RelaxationState;
@@ -20,6 +21,7 @@ export interface AppState {
   login: LoginState;
   points: PointsState;
   time: TimeState;
+  userInfo: UserInfoState;
 }
 
 export default combineReducers<AppState>({
@@ -32,4 +34,5 @@ export default combineReducers<AppState>({
   login: loginReducer,
   points: pointsReducer,
   time: timeReducer,
+  userInfo: userInfoReducer,
 });

@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Image,
   Text,
-  View,
   TouchableHighlight,
   StyleSheet,
   Dimensions,
@@ -19,7 +18,7 @@ const WelcomeIntroductionScreen = () => {
     <TouchableHighlight
       style={appStyles.container}
       onPress={() => {
-        navigation.navigate('WelcomeSignUpScreen');
+        navigation.navigate('WelcomeSignUp');
       }}
     >
       <LinearGradient

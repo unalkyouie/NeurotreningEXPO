@@ -1,43 +1,42 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useRef } from 'react';
+import React from 'react';
 import {
   Image,
   Text,
   TouchableHighlight,
   View,
   StyleSheet,
-  Animated,
+  Dimensions,
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+
 import { colors } from '../../assets/styles';
+const { height, width } = Dimensions.get('window');
 
 const WelcomeScreen = () => {
   console.log('welv');
   const navigation = useNavigation();
-  const fadeAnim = useRef(new Animated.Value(1)).current;
-  const onPress = () => {
-    Animated.timing(fadeAnim, {
-      toValue: 0,
-      duration: 2200,
-      useNativeDriver: true,
-    }).start();
-    setTimeout(() => {
-      navigation.navigate('main');
-    }, 2000);
-  };
   return (
     <View style={[styles.container]}>
       <TouchableHighlight
         style={styles.container}
-        onPress={onPress}
+        onPress={() => {
+          navigation.navigate('WelcomeIntroduction');
+        }}
         underlayColor={'transparent'}
       >
-        <View style={styles.container}>
-          {/* <Image
-            style={styles.image}
-            source={require('../../assets/images/ProductHunt2.jpg')}
-          /> */}
-          <Text style={styles.text}>Witej</Text>
-        </View>
+        <LinearGradient
+          colors={['#4ecdc4', '#88dac8', '#b3e6d1', '#f7fff7']}
+          style={styles.linearGradient}
+        >
+          <View style={styles.container}>
+            <Image
+              style={styles.image}
+              source={require('../../assets/images/ProductHunt2.png')}
+            />
+            <Text style={styles.text}>Witej</Text>
+          </View>
+        </LinearGradient>
       </TouchableHighlight>
     </View>
   );
@@ -48,20 +47,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'transparent',
-    width: '100%',
-    height: '100%',
+    width,
+    height,
   },
   contentCOntainer: {
     alignItems: 'center',
     justifyContent: 'center',
   },
   image: {
-    width: '80%',
-    height: '60%',
+    width: 0.8 * width,
+    height: 0.6 * height,
   },
   text: {
     fontSize: 60,
     color: colors.midnightGreen,
+  },
+  linearGradient: {
+    alignSelf: 'center',
+    bottom: 0,
+    top: 0,
+    left: 0,
+    width,
+    height,
+    right: 0,
+    justifyContent: 'center',
   },
 });
 

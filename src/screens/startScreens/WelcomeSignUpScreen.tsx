@@ -1,23 +1,26 @@
-import React from 'react';
-import {
-  Image,
-  Text,
-  View,
-  TouchableHighlight,
-  StyleSheet,
-  Dimensions,
-} from 'react-native';
+import React, { Dispatch, useState } from 'react';
+import { Text, View, StyleSheet, Dimensions, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useDispatch } from 'react-redux';
 
 import { appStyles } from '../../assets/styles';
 import Button from '../../components/Button';
-import { TextInput } from 'react-native-paper';
+import { LoginActions, setLogin } from '../../reducers/loginReducer';
+import { UserInfoActions, setUserInfo } from '../../reducers/userInfoReducer';
+
 const { height, width } = Dimensions.get('window');
 
 const WelcomeSignUpScreen = () => {
   const navigation = useNavigation();
+  const [username, setUsername] = useState('');
+  const dispatchLogin = useDispatch<Dispatch<LoginActions>>();
+  const dipatchUserData = useDispatch<Dispatch<UserInfoActions>>();
 
+  const onPress = () => {
+    dipatchUserData(setUserInfo({ name: username }));
+    dispatchLogin(setLogin(true));
+  };
   return (
     <View style={appStyles.container}>
       <LinearGradient
@@ -25,8 +28,15 @@ const WelcomeSignUpScreen = () => {
         style={styles.linearGradient}
       >
         <View style={{ flexDirection: 'row' }}>
-          <Text> </Text>
-          <TextInput />
+          <Text>Podaj swoje imię</Text>
+          <TextInput
+            autoFocus={true}
+            clearTextOnFocus={true}
+            onChangeText={(text) => {
+              setUsername(text);
+            }}
+          />
+          <Button onPress={onPress} text="ok" />
         </View>
         <View style={{ flexDirection: 'row' }}>
           <Text>Masz już konto? </Text>
