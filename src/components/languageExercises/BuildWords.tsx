@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Dispatch } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,6 +8,7 @@ import {
   Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useSelector } from 'react-redux';
 
 import DictionaryProvider from '../../api/DictionaryProvider';
 import { consonant, vowels } from '../../assets/consts';
@@ -16,6 +17,9 @@ import Button from '../Button';
 import EndOfExerciseModal from '../EndOfExerciseModal';
 import List from '../List';
 import Timer from '../Timer';
+import { useDispatch } from 'react-redux';
+import { PointsActions, setPoints } from '../../reducers/pointsReducer';
+import { AppState } from '../../reducers';
 
 const exerciseDescripton = `W ciągu 5 minut ułóż jak najwięcej wyrazów składających się z poniższego
 zestawu liter. Nie musisz za każdym razem wykorzystywać wszystkich
@@ -23,23 +27,29 @@ liter. Litery do wykorzystania: `;
 const { height, width } = Dimensions.get('window');
 
 const BuildWords = () => {
+  const dispatchPoints = useDispatch<Dispatch<PointsActions>>();
+  const previousPoints = useSelector<AppState, number>(
+    (state) => state.points.points
+  );
   const [lettersToUse, setLettersToUse] = useState<string[]>([]);
   const [wordsList, setWordsList] = useState<string[]>([]);
   const [newWord, setNewWord] = useState('');
   const [isExerciseStarted, setIsExerciseStarted] = useState(false);
   const [isExerciseFinished, setIsExerciseFinished] = useState(false);
-  const [points, setPoints] = useState(0);
+  const [currentPoints, setCurrentPoints] = useState(0);
   const time = 300;
 
   useEffect(() => {
     setWordsList([]);
     getLetters();
     console.log(lettersToUse);
+    setCurrentPoints(previousPoints);
   }, []);
   const startExercise = () => {
     setIsExerciseStarted(true);
     setIsExerciseFinished(false);
     const timeout = setTimeout(() => {
+      dispatchPoints(setPoints(currentPoints));
       setIsExerciseStarted(false);
       setIsExerciseFinished(true);
       clearTimeout(timeout);
@@ -76,7 +86,7 @@ const BuildWords = () => {
           const arr = [...prev, newWord];
           return arr;
         });
-        setPoints(points + 1);
+        setCurrentPoints(currentPoints + 1);
       }
     }
   };
@@ -176,7 +186,10 @@ const BuildWords = () => {
         )}
       </View>
       {isExerciseFinished && (
-        <EndOfExerciseModal points={points} startExercise={startExercise} />
+        <EndOfExerciseModal
+          points={currentPoints}
+          startExercise={startExercise}
+        />
       )}
     </>
   );

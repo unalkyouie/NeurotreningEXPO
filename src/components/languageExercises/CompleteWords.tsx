@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Dispatch } from 'react';
 import { StyleSheet, Text, TextInput, View, Dimensions } from 'react-native';
 
 import DictionaryProvider from '../../api/DictionaryProvider';
@@ -8,18 +8,26 @@ import Button from '../Button';
 import EndOfExerciseModal from '../EndOfExerciseModal';
 import List from '../List';
 import Timer from '../Timer';
+import { useDispatch, useSelector } from 'react-redux';
+import { PointsActions, setPoints } from '../../reducers/pointsReducer';
+import { AppState } from '../../reducers';
 const { height, width } = Dimensions.get('window');
 
 const CompleteWords = () => {
+  const dispatchPoints = useDispatch<Dispatch<PointsActions>>();
+  const previousPoints = useSelector<AppState, number>(
+    (state) => state.points.points
+  );
   const [wordsList, setWordsList] = useState<string[]>([]);
   const [newWord, setNewWord] = useState('');
   const [letter, setLetter] = useState('');
   const [isExerciseStarted, setIsExerciseStarted] = useState(false);
   const [isExerciseFinished, setIsExerciseFinished] = useState(false);
-  const [points, setPoints] = useState(0);
+  const [currentPoints, setCurrentPoints] = useState(0);
   const time = 300;
   useEffect(() => {
     setWordsList([]);
+    setCurrentPoints(previousPoints);
     const l = Math.floor(Math.random() * lettersList.length);
     setLetter(lettersList[l]);
   }, []);
@@ -27,6 +35,7 @@ const CompleteWords = () => {
   const startExercise = () => {
     setIsExerciseStarted(true);
     setIsExerciseFinished(false);
+    dispatchPoints(setPoints(currentPoints));
     setTimeout(() => {
       setIsExerciseStarted(false);
       setIsExerciseFinished(true);
@@ -57,7 +66,7 @@ const CompleteWords = () => {
           const arr = [...prev, newWord];
           return arr;
         });
-        setPoints(points + 1);
+        setCurrentPoints(currentPoints + 1);
       }
     }
   };
@@ -122,7 +131,10 @@ const CompleteWords = () => {
         )}
       </View>
       {isExerciseFinished && (
-        <EndOfExerciseModal points={points} startExercise={startExercise} />
+        <EndOfExerciseModal
+          points={currentPoints}
+          startExercise={startExercise}
+        />
       )}
     </>
   );

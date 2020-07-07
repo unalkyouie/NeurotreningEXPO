@@ -3,11 +3,11 @@ import NetInfo, {
   NetInfoSubscription,
 } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import Button from '../components/Button';
 import { colors, appStyles } from '../assets/styles';
+import Button from '../components/Button';
 
 const { height, width } = Dimensions.get('window');
 

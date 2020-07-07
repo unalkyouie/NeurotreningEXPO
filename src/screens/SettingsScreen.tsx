@@ -1,12 +1,22 @@
 import React from 'react';
-import { Image, Text, View, ScrollView, TouchableOpacity } from 'react-native';
-
-import { appStyles } from '../assets/styles';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
-import { BackgroundActions } from '../reducers/backgroundReducer';
-import { LevelActions } from '../reducers/levelReducer';
+
+import { appStyles } from '../assets/styles';
 import Button from '../components/Button';
+import {
+  BackgroundActions,
+  setBackground,
+} from '../reducers/backgroundReducer';
+import { LevelActions, setLevel } from '../reducers/levelReducer';
 
 const SettingsScreen = () => {
   const dispatchBackground = useDispatch<Dispatch<BackgroundActions>>();
@@ -18,14 +28,26 @@ const SettingsScreen = () => {
       <Text>Relakasacja</Text>
       <Text> Tło</Text>
       <ScrollView>
-        <TouchableOpacity>
-          <Image />
+        <TouchableOpacity
+          onPress={() => {
+            dispatchBackground(setBackground('background.jpg'));
+          }}
+        >
+          <Image source={require('../assets/images/background.jpg')} />
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Image />
+        <TouchableOpacity
+          onPress={() => {
+            dispatchBackground(setBackground('background1.jpg'));
+          }}
+        >
+          <Image source={require('../assets/images/background1.jpg')} />
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Image />
+        <TouchableOpacity
+          onPress={() => {
+            dispatchBackground(setBackground('background2.jpg'));
+          }}
+        >
+          <Image source={require('../assets/images/background2.jpg')} />
         </TouchableOpacity>
       </ScrollView>
       <Text> Czas wdechu i wydechu</Text>
@@ -38,12 +60,33 @@ const SettingsScreen = () => {
       <Text>Ćwiczenia</Text>
       <Text>Poziom trudności</Text>
       <View>
-        <Button text="Łatwy" />
-        <Button text="Średni" />
-        <Button text="Trudny" />
+        <Button
+          text="Łatwy"
+          onPress={() => {
+            dispatchLevel(setLevel(1));
+          }}
+        />
+        <Button
+          text="Średni"
+          onPress={() => {
+            dispatchLevel(setLevel(2));
+          }}
+        />
+        <Button
+          text="Trudny"
+          onPress={() => {
+            dispatchLevel(setLevel(3));
+          }}
+        />
       </View>
     </View>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  userInfo: {},
+});
 export default SettingsScreen;

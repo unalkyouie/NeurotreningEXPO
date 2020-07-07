@@ -1,30 +1,12 @@
-import NetInfo, {
-  NetInfoState,
-  NetInfoSubscription,
-} from '@react-native-community/netinfo';
-import { useNavigation } from '@react-navigation/native';
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
-
-import { colors, appStyles } from '../assets/styles';
-import { ExercisesNavigator } from '../Navigation';
 import { LinearGradient } from 'expo-linear-gradient';
+import React from 'react';
+import { Dimensions, StyleSheet } from 'react-native';
+
+import { ExercisesNavigator } from '../Navigation';
 
 const { height, width } = Dimensions.get('window');
 
 const ExerciseScreen = () => {
-  const navigation = useNavigation();
-  const [isConnected, setIsConnected] = useState(false);
-  const [subscription, setSubscription] = useState<NetInfoSubscription | null>(
-    null
-  );
-
-  useEffect(() => {
-    setSubscription(NetInfo.addEventListener(handleConnectivityChange));
-  }, []);
-  const handleConnectivityChange = (state: NetInfoState) => {
-    setIsConnected(state.isConnected);
-  };
   return (
     <>
       <LinearGradient

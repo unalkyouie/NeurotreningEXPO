@@ -1,27 +1,29 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useState, useEffect, Dispatch } from 'react';
+import React, { Dispatch, useEffect, useState } from 'react';
 import {
-  Text,
-  View,
+  Dimensions,
   ImageBackground,
   StyleSheet,
-  Dimensions,
+  Text,
+  View,
 } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { appStyles } from '../assets/styles';
 import BreathingExercise from '../components/BreathingExercise';
 import Button from '../components/Button';
-import { appStyles } from '../assets/styles';
+import { AppState } from '../reducers';
 import {
   setRelaxation,
   RelaxationActions,
 } from '../reducers/relaxationReducer';
-import { TabNavigator } from '../Navigation';
+
 const { height, width } = Dimensions.get('window');
 
 const RelaxationScreen = () => {
-  const navigation = useNavigation();
   const dispatch = useDispatch<Dispatch<RelaxationActions>>();
+  const background = useSelector<AppState, string>(
+    (state) => state.background.background
+  );
   const [isExerciseStarted, setIsExerciseStarted] = useState(false);
   const time = 300;
 
@@ -30,7 +32,6 @@ const RelaxationScreen = () => {
       setTimeout(() => {
         dispatch(setRelaxation(false));
         setIsExerciseStarted(false);
-        navigation.navigate('main');
       }, (time + 5) * 1000);
     }
   }, [isExerciseStarted]);
@@ -38,7 +39,7 @@ const RelaxationScreen = () => {
     <View style={[appStyles.container]}>
       <ImageBackground
         style={styles.image}
-        source={require('../assets/images/background.jpg')}
+        source={require(`../assets/images/${background}`)}
       >
         {!isExerciseStarted && (
           <View>

@@ -4,11 +4,12 @@ import NetInfo, {
   NetInfoState,
 } from '@react-native-community/netinfo';
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { Dispatch, useState, useEffect } from 'react';
+import React, { Dispatch, useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import YouTubeProvider, { NEUROTRENING_ID } from '../api/YouTubeProvider';
+import { UserData } from '../assets/consts';
 import { appStyles, colors } from '../assets/styles';
 import Button from '../components/Button';
 import { AppState } from '../reducers';
@@ -25,7 +26,9 @@ import { ResetActions, resetResetState } from '../reducers/resetReducer';
 const { height, width } = Dimensions.get('window');
 
 const MainScreen = () => {
-  console.log('main screen');
+  const selectUserData = useSelector<AppState, UserData>(
+    (state) => state.userInfo.userInfo
+  );
   const navigation = useNavigation();
   const dispatchRelaxation = useDispatch<Dispatch<RelaxationActions>>();
   const dispatchExercise = useDispatch<Dispatch<ExerciseActions>>();
@@ -108,7 +111,7 @@ const MainScreen = () => {
               { marginBottom: 0, fontSize: 40, color: colors.midnightGreen },
             ]}
           >
-            Witaj!
+            {`Witaj ${selectUserData.name}!`}
           </Text>
           <Text
             style={[

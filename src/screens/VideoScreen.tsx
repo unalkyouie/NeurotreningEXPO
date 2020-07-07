@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
+  ScrollView,
   StyleSheet,
   Text,
   View,
-  ScrollView,
 } from 'react-native';
 
 import YouTubeProvider, {
@@ -16,13 +16,10 @@ import YouTubeProvider, {
 import { appStyles, colors } from '../assets/styles';
 import Button from '../components/Button';
 import VideoView from '../components/VideoView';
-import { useNavigation } from '@react-navigation/native';
-import { TabNavigator } from '../Navigation';
 
 const { height, width } = Dimensions.get('window');
 
 const VideoScreen = () => {
-  const navigation = useNavigation();
   const [chosenVideo, setChosenVideo] = useState<Video>({
     title: '',
     id: '',
@@ -36,7 +33,6 @@ const VideoScreen = () => {
   useEffect(() => {
     getVideosList();
     getFirstVideo();
-    console.log('videoScreen ' + videoList);
     setIsVideoPlaying(() => {
       const arr = videoList.map(() => false);
       arr[0] = true;
@@ -53,7 +49,6 @@ const VideoScreen = () => {
       ];
       return arr;
     });
-    console.log('videoScreen2 ' + videoList);
   }, [chosenVideo]);
 
   const getVideosList = async () => {
@@ -62,7 +57,7 @@ const VideoScreen = () => {
       const result = await YouTubeProvider.getVideoList(chosenPlaylist);
       setVideoList(result.response);
     } catch (error) {
-      console.log(error + ' message ' + error.message);
+      console.log(error);
     }
   };
 
@@ -71,13 +66,14 @@ const VideoScreen = () => {
       const result = await YouTubeProvider.getLastVideo(chosenPlaylist);
       setChosenVideo(result.response);
     } catch (error) {
-      console.log(error + ' message ' + error.message);
+      console.log(error);
     }
   };
   const getVideo = async (title: string) => {
     const video = await YouTubeProvider.getVideoByTitle(chosenPlaylist, title);
     return video;
   };
+
   return (
     <View
       style={[
@@ -217,7 +213,6 @@ const styles = StyleSheet.create({
   },
   switchButtonActiveText: {
     color: colors.midnightGreen,
-    // fontSize: 15,
   },
   switchContainer: {
     backgroundColor: colors.midnightGreen,

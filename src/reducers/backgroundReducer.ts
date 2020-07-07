@@ -6,7 +6,7 @@ export const RESET_STATE = 'akademiadelfina/backgroundReducer/RESET_STATE';
 
 export interface SetBackground {
   type: typeof SET_BACKGROUND;
-  payload: background;
+  payload: string;
 }
 
 export interface ResetStateAction {
@@ -15,11 +15,11 @@ export interface ResetStateAction {
 export type BackgroundActions = SetBackground | ResetStateAction;
 
 export interface BackgroundState {
-  background: background;
+  background: string;
 }
 
 const INITIAL_STATE: BackgroundState = {
-  background: background.pierwsze,
+  background: '',
 };
 
 const reducer = (
@@ -36,7 +36,7 @@ const reducer = (
   }
 };
 
-export const setBackground = (background: background): SetBackground => {
+export const setBackground = (background: string): SetBackground => {
   return { type: SET_BACKGROUND, payload: background };
 };
 

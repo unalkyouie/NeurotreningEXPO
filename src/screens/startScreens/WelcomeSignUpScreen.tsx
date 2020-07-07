@@ -1,7 +1,7 @@
-import React, { Dispatch, useState } from 'react';
-import { Text, View, StyleSheet, Dimensions, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
+import React, { Dispatch, useState } from 'react';
+import { Dimensions, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import { appStyles } from '../../assets/styles';

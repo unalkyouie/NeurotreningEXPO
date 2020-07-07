@@ -35,7 +35,6 @@ const theme = {
 };
 
 const App = () => {
-  console.log('Hello');
   console.disableYellowBox = true;
   const [isUserLogged, setIsUserLogged] = useState(false);
   const logInState = useSelector<AppState, boolean>(

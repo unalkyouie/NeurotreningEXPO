@@ -1,14 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import {
+  Dimensions,
   Image,
+  StyleSheet,
   Text,
   TouchableHighlight,
   View,
-  StyleSheet,
-  Dimensions,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 
 import { colors } from '../../assets/styles';
 const { height, width } = Dimensions.get('window');

@@ -141,10 +141,57 @@ export const DrawerNavigator = () => {
       screenOptions={{}}
       drawerStyle={{ backgroundColor: colors.mintCream }}
     >
-      <Drawer.Screen name="Home" component={TabNavigator} />
-      <Drawer.Screen name="UserScreen" component={UserScreen} />
-      <Drawer.Screen name="InfoScreen" component={InfoScreen} />
-      <Drawer.Screen name="Settings" component={SettingsScreen} />
+      <Drawer.Screen
+        name="Home"
+        component={TabNavigator}
+        options={{
+          drawerIcon: () => (
+            <MaterialCommunityIcons name="home" color={'grey'} size={26} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="UserScreen"
+        component={UserNavigation}
+        options={{
+          drawerIcon: () => (
+            <MaterialCommunityIcons name="account" color={'grey'} size={26} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="InfoScreen"
+        component={InfoScreen}
+        options={{
+          drawerIcon: () => (
+            <MaterialCommunityIcons
+              name="information"
+              color={'grey'}
+              size={26}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          drawerIcon: () => (
+            <MaterialCommunityIcons name="cogs" color={'grey'} size={26} />
+          ),
+        }}
+      />
     </Drawer.Navigator>
+  );
+};
+
+const SignUpStack = createStackNavigator();
+export const UserNavigation = () => {
+  return (
+    <SignUpStack.Navigator>
+      <SignUpStack.Screen name="Home" component={UserScreen} />
+      <SignUpStack.Screen name="SignIn" component={SignInScreen} />
+      <SignUpStack.Screen name="SignUp" component={SignUpScreen} />
+    </SignUpStack.Navigator>
   );
 };
